@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zendix - Document Automation Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta name="description" content="Zendix —  Automate your data entry workflow with AI." />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <div class="logo">Zendix</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#workflow">How It Works</a>
+        <a href="#use-cases">Use Cases</a>
+        <a href="#demo">Request Demo</a>
+      </div>
+
+      <div class="menu-toggle" id="menuToggle" aria-label="Open menu" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-inner">
+        <a href="#features" class="mobile-link">Features</a>
+        <a href="#workflow" class="mobile-link">How It Works</a>
+        <a href="#use-cases" class="mobile-link">Use Cases</a>
+        <a href="#demo" class="mobile-link">Request Demo</a>
+      </div>
+    </div>
+
+  </nav>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">AI-Powered Document Automation</div>
+        <h1>Stop Manual Data Entry From Documents and Emails</h1>
+
+        <p>
+          Zendix automatically extracts structured data from PDFs, images, text, and emails into clean, reviewable
+          tables your team can edit, approve, and export.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#demo" class="btn btn-primary">Request a Demo</a>
+          <a href="#workflow" class="btn btn-secondary">See How It Works</a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="images/Screenshot (502) 1.png" alt="Zendix dashboard preview">
+      </div>
+    </div>
+
+  </section>
+  <section>
+    <div class="container">
+      <div class="hero-points">
+        <div class="hero-point">Extract data from PDFs, images, text, and emails automatically.</div>
+        <div class="hero-point">Human review workflows included — no blind AI automation.</div>
+        <div class="hero-point">Organize workflows across teams, departments, and customers.</div>
+        <div class="hero-point">Export structured data to CSV and Excel instantly.</div>
+      </div>
+    </div>
+  </section>
+  <section id="problems">
+    <div class="container">
+      <div class="section-header">
+        <h2>Manual Data Entry Slows Teams Down</h2>
+        <p>Many businesses still spend hours copying information from documents into spreadsheets or internal systems.
+        </p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Slower Workflows</h3>
+          <p>Teams waste time entering data from PDFs, images, emails, and forms by hand.</p>
+        </div>
+
+        <div class="card">
+          <h3>Costly Errors</h3>
+          <p>Manual re-entry often causes mistakes that lead to delays, confusion, and extra cleanup work.</p>
+        </div>
+
+        <div class="card">
+          <h3>Scattered Workflows</h3>
+          <p>Documents arrive from different sources and departments, making it hard to keep everything organized.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Built for Teams Handling High Volumes of Documents</h2>
+        <p>Zendix helps businesses process documents faster by turning messy files and emails into structured, usable
+          data.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>AI-Powered Extraction</h3>
+          <p>Extract predefined structured data from PDFs, images, text files, and emails in seconds, with high accuracy.</p>
+        </div>
+
+        <div class="card">
+          <h3>Human Review Layer</h3>
+          <p>Compare extracted data with original source files, edit values if needed, and approve results confidently.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Email Automation</h3>
+          <p>Automatically process incoming business emails and attachments on demand.</p>
+        </div>
+
+        <div class="card">
+          <h3>Reusable Schemas</h3>
+          <p>Create schemas defining data to extract once and reuse them across different environments and workflows.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Multi-Environment Workflows</h3>
+          <p>Separate workflows by department, customer, business unit, or use case for cleaner operations.</p>
+        </div>
+
+        <div class="card">
+          <h3>Export Ready Data</h3>
+          <p>Export clean structured results to CSV or Excel for reporting, analytics, or downstream tools.</p>
+        </div>
+
+        <div class="card">
+          <h3>Audit Logs</h3>
+          <p>Keep a clear record of uploads, edits, approvals, etc, so your team can track every action.</p>
+        </div>
+
+        <div class="card">
+          <h3>API Integration</h3>
+          <p>Connect Zendix to your internal systems and workflows using a flexible API for seamless automation.</p>
+        </div>
+
+        <div class="card">
+          <h3>File Privacy & Security</h3>
+          <p>Keep business documents protected with secure handling, controlled access, and privacy-focused workflows.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section id="workflow">
+    <div class="container">
+      <div class="section-header">
+        <h2>How Zendix Works</h2>
+        <p>Automate repetitive document workflows in four simple steps.</p>
+      </div>
+      <div class="workflow">
+        <div class="card">
+          <div class="step-number">1</div>
+          <h3>Upload or Connect</h3>
+          <p>Upload PDFs, images, and text files or connect your business email inbox.</p>
+        </div>
+
+        <div class="card">
+          <div class="step-number">2</div>
+          <h3>Automatic Extraction</h3>
+          <p>Zendix extracts predefined fields and structures the data into organized tables.</p>
+        </div>
+
+        <div class="card">
+          <div class="step-number">3</div>
+          <h3>Review and Approve</h3>
+          <p>Teams can compare extracted data with source documents and fix anything if needed.</p>
+        </div>
+
+        <div class="card">
+          <div class="step-number">4</div>
+          <h3>Export and Continue</h3>
+          <p>Export clean structured data to CSV or continue workflows inside Zendix.</p>
+        </div>
+      </div>
+
+      <div class="workflow-gallery">
+        <div class="workflow-shot">
+          <img src="images/Screenshot (503).png" alt="Document to table extraction">
+          <div class="shot-label">Document to Table</div>
+          <div class="shot-desc">Turn files into structured records automatically.</div>
+        </div>
+
+        <div class="workflow-shot">
+          <img src="images/Screenshot (504).png" alt="Review workflow screen">
+          <div class="shot-label">Review Screen</div>
+          <div class="shot-desc">Inspect and edit extracted results before approval.</div>
+        </div>
+
+        <div class="workflow-shot">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop"
+            alt="Fail reason panel">
+          <div class="shot-label">Fail Reason</div>
+          <div class="shot-desc">See issues detected during extraction and correct them.</div>
+        </div>
+
+        <div class="workflow-shot">
+          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1600&auto=format&fit=crop"
+            alt="Email workflow automation">
+          <div class="shot-label">Email Automation</div>
+          <div class="shot-desc">Automatically process incoming emails and attachments.</div>
+        </div>
+      </div>
+
+      <div class="showcase">
+        <div>
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop"
+            alt="Zendix dashboard preview">
+        </div>
+
+        <div class="showcase-content">
+          <h3>Designed for Real Business Workflows</h3>
+          <p>
+            Zendix combines AI-powered extraction with human review so your team stays in control while processing
+            documents faster.
+          </p>
+
+          <div class="showcase-list">
+            <div>Separate workflows across customers, departments, and business units using environments.</div>
+            <div>Create reusable schemas for invoices, shipment records, HR forms, and more.</div>
+            <div>Detect extraction issues early using built-in fail reason reporting.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section id="use-cases">
+    <div class="container">
+      <div class="section-header">
+        <h2>Common Zendix Use Cases</h2>
+        <p>Flexible enough for logistics, finance, HR, operations, support, and research teams.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Logistics</h3>
+          <ul>
+            <li>Shipment documents</li>
+            <li>Invoices and manifests</li>
+            <li>Email attachment workflows</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>HR and Recruitment</h3>
+          <ul>
+            <li>Applicant records</li>
+            <li>CV processing</li>
+            <li>Onboarding forms</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Finance and Operations</h3>
+          <ul>
+            <li>Receipts and invoices</li>
+            <li>Payment records</li>
+            <li>Operational reports</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Research Teams</h3>
+          <ul>
+            <li>Survey records</li>
+            <li>Participant data</li>
+            <li>Field forms</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Customer Support</h3>
+          <ul>
+            <li>Request forms</li>
+            <li>Case details</li>
+            <li>Follow-up records</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Administration</h3>
+          <ul>
+            <li>Internal documents</li>
+            <li>Approval workflows</li>
+            <li>Manual data entry replacement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2>Simple Pricing That Scales With Your Workload</h2>
+        <p>Choose a plan based on monthly document volume and storage needs. Higher tiers include more capacity and room
+          for larger teams.</p>
+      </div>
+      <div style="overflow-x:auto;">
+        <table
+          style="width:100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden;">
+          <thead>
+            <tr style="background: rgba(255,255,255,0.05); text-align: left;">
+              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">Plan</th>
+              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">Pages</th>
+              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">File Storage
+              </th>
+              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">Monthly
+                Payment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Basic</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">700 pages</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">5 GB</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦135,000</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Starter</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">1,000 pages</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">10 GB</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦150,000</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Growth</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">2,500 pages</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">25 GB</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦225,000</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Business</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">5,000 pages</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">75 GB</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦350,000</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Scale</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">10,000 pages</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">200 GB</td>
+              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦600,000</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem;">Enterprise</td>
+              <td style="padding: 1rem;">Custom pages</td>
+              <td style="padding: 1rem;">Custom storage</td>
+              <td style="padding: 1rem;">Custom pricing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br>
+      <p>Additional file storage charged at ₦2,000 per GB per month.</p>
+      <br>
+
+      <div style="overflow-x: auto;">
+        <table
+          style="width:100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden;">
+          <thead>
+            <tr style="background: rgba(255,255,255,0.05); text-align: left;">
+              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">File</th>
+              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">Page
+                Definition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 1rem;">PDF</td>
+              <td style="padding: 1rem;">A single page in a PDF file</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem;">Image (PNG, JPG, JPEG, WEBP)</td>
+              <td style="padding: 1rem;">A single image file</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem;">Text</td>
+              <td style="padding: 1rem;">4,000 characters in text content</td>
+            </tr>
+            <tr>
+              <td style="padding: 1rem;">Email</td>
+              <td style="padding: 1rem;">4,000 characters in email body</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <p>AI data extraction costs increases with file size. Uploading very large files may use more pages than
+        expected.</p>
+      <br>
+    </div>
+
+  </section>
+  <section id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p>Quick answers to the questions businesses usually ask before booking a demo.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>What file types does Zendix support?</h3>
+          <p>Zendix supports PDFs, PNG, JPEG/JPG, WEBP, and TXT files.</p>
+        </div>
+
+        <div class="card">
+          <h3>Can teams review extracted data before exporting it?</h3>
+          <p>Yes. Teams can compare extracted data with the source file, edit values, and approve results. Teams can
+            only export extracted data once approved.</p>
+        </div>
+
+        <div class="card">
+          <h3>Can Zendix handle different departments or customers?</h3>
+          <p>Yes. Multi-environment workflows let businesses separate documents by department, client, or workflow.</p>
+        </div>
+
+        <div class="card">
+          <h3>Does Zendix support email automation?</h3>
+          <p>Yes. It can automatically process incoming business emails and attachments on demand.</p>
+        </div>
+
+        <div class="card">
+          <h3>Can extracted data be exported?</h3>
+          <p>Yes. Clean structured data can be exported to CSV or Excel for use in other tools.</p>
+        </div>
+
+        <div class="card">
+          <h3>How does Zendix reduce errors?</h3>
+          <p>Zendix includes review workflows and fail reason detection so teams can fix issues before export.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section class="cta" id="demo">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Try Zendix With Your Own Documents</h2>
+        <p>Book a quick demo and see how Zendix processes your real workflows using sample documents from your business.
+        </p>
+        <form class="demo-form" id="demoForm" action="https://formspree.io/f/xzdaqpjr" method="POST">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Business Email" required>
+          <input type="text" name="company" placeholder="Company Name">
+          <textarea name="message" placeholder="What type of documents or workflows are you looking to automate?"
+            required></textarea>
+
+          <button class="btn btn-primary" type="submit" id="submitBtn">Request Demo</button>
+          <div class="form-status" id="formStatus" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <div class="logo">Zendix</div>
+        <p>AI-powered document automation platform.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#workflow">How It Works</a>
+        <a href="#demo">Request Demo</a>
+      </div>
+    </div>
+
+  </footer>
+  <script src="index.js"></script>
+</body>
+
+</html>

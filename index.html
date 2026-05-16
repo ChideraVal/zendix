@@ -8,9 +8,997 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <meta name="description" content="Zendix —  Automate your data entry workflow with AI." />
+  <meta name="description" content="Zendix — Automate your data entry workflow with AI." />
+  
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: #0b1329;
+      --surface-card: #111d37;
+      
+      /* Vibrant Cyber Purple Core & Accents */
+      --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --primary-glow: rgba(139, 92, 246, 0.3);
+      --primary-muted: rgba(139, 92, 246, 0.08);
+      
+      --accent-cyan: #06b6d4;
+      --accent-green: #10b981;
+      
+      /* Neutral Typography & Borders */
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(139, 92, 246, 0.35);
+      
+      --success: #34d399;
+      --error: #f87171;
+      --easing: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1200px, 90%);
+      margin: 0 auto;
+    }
+
+    /* --- Navbar --- */
+    .navbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      background: rgba(3, 7, 18, 0.75);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      background: linear-gradient(135deg, #ffffff 50%, var(--muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      transition: color 0.2s var(--easing);
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* --- Mobile Navigation Menu --- */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 2001;
+    }
+
+    .menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s var(--easing);
+    }
+
+    .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      background: rgba(3, 7, 18, 0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: max-height 0.4s var(--easing);
+    }
+
+    .mobile-menu.active { max-height: 360px; }
+
+    .mobile-menu-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 2rem 1.5rem;
+    }
+
+    .mobile-menu a {
+      color: var(--text);
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.85rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* --- Button System --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.75rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s var(--easing);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(139, 92, 246, 0.5);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-2px);
+    }
+
+    /* --- Premium Hero Section --- */
+    .hero {
+      padding: 11rem 0 6rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      top: -150px;
+      right: -100px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      background: var(--primary-muted);
+      color: #c084fc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.75rem;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #ffffff 50%, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-illustration {
+      width: 100%;
+      height: auto;
+      max-width: 580px;
+      justify-self: center;
+      filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5));
+    }
+
+    /* --- Extraction Keyframes (Hero Automation) --- */
+    @keyframes scanline {
+      0%, 100% { transform: translateY(0); opacity: 0.3; }
+      50% { transform: translateY(110px); opacity: 0.9; }
+    }
+
+    @keyframes pulsePath {
+      0% { stroke-dashoffset: 24; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes flashBox {
+      0%, 100% { stroke: var(--primary); fill: rgba(139, 92, 246, 0.05); }
+      50% { stroke: var(--accent-cyan); fill: rgba(6, 182, 212, 0.15); }
+    }
+
+    @keyframes rowReveal {
+      0%, 15% { opacity: 0.1; transform: translateX(-4px); }
+      40%, 100% { opacity: 1; transform: translateX(0); }
+    }
+
+    /* CSS hooks targeting internal SVG nodes safely */
+    .scan-line { animation: scanline 4s ease-in-out infinite; }
+    .pulse-flow { stroke-dasharray: 8, 4; animation: pulsePath 1.5s linear infinite; }
+    .extract-box { animation: flashBox 3s ease-in-out infinite; }
+    .row-1 { animation: rowReveal 5s infinite ease-in-out; }
+    .row-2 { animation: rowReveal 5s infinite ease-in-out 1s; }
+    .row-3 { animation: rowReveal 5s infinite ease-in-out 2s; }
+
+    /* --- Gallery Micro-Animations (Card SVG Elements) --- */
+    @keyframes floatFile {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes pulseArrow {
+      0%, 100% { transform: translateY(0); opacity: 0.4; }
+      50% { transform: translateY(4px); opacity: 1; }
+    }
+    @keyframes cardScan {
+      0% { transform: translateY(0); opacity: 0; }
+      10%, 90% { opacity: 0.8; }
+      100% { transform: translateY(90px); opacity: 0; }
+    }
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+    @keyframes slideExport {
+      0% { transform: translateY(-15px); opacity: 0; }
+      20%, 80% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(20px); opacity: 0; }
+    }
+
+    .anim-file { animation: floatFile 3s ease-in-out infinite; }
+    .anim-arrow { animation: pulseArrow 2s ease-in-out infinite; }
+    .anim-scan { animation: cardScan 3s linear infinite; }
+    .anim-cursor { animation: cursorBlink 1s infinite; }
+    .anim-export { animation: slideExport 3s ease-in-out infinite; }
+
+    /* --- Section Global Structure --- */
+    section {
+      padding: 8rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 5rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    /* Inline Value Props Bar */
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.01) 50%, transparent);
+    }
+
+    .hero-point {
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 500;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .hero-point::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.4rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 8px var(--primary);
+    }
+
+    /* --- Asymmetrical Problems Section --- */
+    #problems {
+      background: #02050f;
+    }
+
+    .problems-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 5rem;
+      align-items: flex-start;
+    }
+
+    .problems-sticky h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .problems-sticky p {
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .problems-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .problem-item {
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .problem-item:last-child {
+      border: none;
+    }
+
+    .problem-item h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .problem-item h3 span {
+      color: var(--error);
+      font-family: monospace;
+      font-size: 1.1rem;
+    }
+
+    .problem-item p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      padding-left: 2.2rem;
+    }
+
+    /* --- Borderless Seamless Features Matrix --- */
+    #features .features-matrix {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .feature-tile {
+      background: var(--bg);
+      padding: 3rem;
+      transition: all 0.3s var(--easing);
+    }
+
+    .feature-tile:hover {
+      background: rgba(11, 19, 41, 0.4);
+    }
+
+    /* Outlined Vector Icon Styling for Matrix */
+    .feature-tile .tile-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      stroke-width: 1.5px;
+      transition: transform 0.3s var(--easing);
+    }
+    
+    .feature-tile:hover .tile-icon {
+      transform: scale(1.1);
+      color: #a78bfa;
+    }
+
+    .feature-tile h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-tile p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    /* --- Alternating Workflow Timeline --- */
+    .timeline-track {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .timeline-track::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--border);
+      transform: translateX(-50%);
+    }
+
+    .timeline-node {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+    }
+
+    .timeline-node:nth-child(even) .timeline-content {
+      grid-column: 2;
+    }
+
+    .timeline-node:nth-child(even) .timeline-space {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .timeline-marker {
+      position: absolute;
+      left: 50%;
+      top: 1.5rem;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--primary);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      box-shadow: 0 0 15px var(--primary-glow);
+      z-index: 5;
+    }
+
+    .timeline-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      border-radius: 20px;
+      transition: border 0.3s;
+    }
+
+    .timeline-content:hover {
+      border-color: var(--border-hover);
+    }
+
+    .timeline-content h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-content p {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    /* Gallery & Showcases */
+    .workflow-gallery {
+      margin-top: 6rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .workflow-shot {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .workflow-shot svg {
+      width: 100%;
+      height: 160px;
+      background: rgba(3, 7, 18, 0.4);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .shot-label {
+      padding: 1.25rem 1.25rem 0.25rem;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .shot-desc {
+      padding: 0 1.25rem 1.25rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5rem;
+      align-items: center;
+      margin-top: 8rem;
+    }
+
+    /* --- Rotating Dynamic SVG Showcase --- */
+    .showcase-display {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--surface);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      overflow: hidden;
+    }
+
+    .showcase-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.6s var(--easing), transform 0.6s var(--easing);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      pointer-events: none;
+    }
+
+    .showcase-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .showcase-slide svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .showcase-content h3 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+    }
+
+    .showcase-content p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .showcase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .showcase-list div {
+      padding: 1.25rem;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    /* --- Use Cases Grid with Custom Icons --- */
+    #use-cases {
+      background: #02050f;
+    }
+
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .use-case-box {
+      background: rgba(255,255,255,0.01);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      border-radius: 20px;
+      transition: border 0.3s var(--easing);
+    }
+
+    .use-case-box:hover {
+      border-color: rgba(6, 182, 212, 0.3);
+    }
+
+    .use-case-box .case-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 1.25rem;
+      color: var(--accent-cyan);
+      stroke-width: 1.5px;
+    }
+
+    .use-case-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+
+    .use-case-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .use-case-box ul li {
+      color: var(--muted);
+      font-size: 0.98rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .use-case-box ul li::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+    }
+
+    /* --- Pricing Module --- */
+    .pricing-split-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+    }
+
+    .pricing-main-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .pricing-table-header {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      padding: 1.25rem 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .pricing-row {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .pricing-row:last-child { border: none; }
+    .pricing-row:hover { background: rgba(255,255,255,0.01); }
+    .pricing-row .plan-name { font-weight: 600; color: var(--text); }
+    .pricing-row .plan-price { font-weight: 700; color: var(--accent-cyan); }
+
+    .pricing-sidebar-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .def-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .def-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--text);
+    }
+
+    .def-card p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+    .pricing-disclaimer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* --- Modern Masonry FAQs --- */
+    .faq-masonry {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .faq-node {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+    }
+
+    .faq-node h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .faq-node p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    /* --- Conversion Form --- */
+    .cta {
+      background: radial-gradient(100% 100% at 50% 0%, var(--primary-muted) 0%, transparent 100%);
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-box {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: clamp(2.2rem, 4.5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin-bottom: 3rem;
+    }
+
+    .demo-form {
+      display: grid;
+      gap: 1.25rem;
+      background: var(--surface);
+      padding: 3rem;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      text-align: left;
+    }
+
+    .demo-form input,
+    .demo-form textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      color: white;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s var(--easing);
+    }
+
+    .demo-form input:focus,
+    .demo-form textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+    }
+
+    .demo-form textarea {
+      min-height: 140px;
+      resize: none;
+    }
+
+    .demo-form .btn {
+      padding: 1.1rem;
+      font-size: 1rem;
+    }
+
+    .form-status {
+      min-height: 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* --- Footer Context --- */
+    footer {
+      padding: 4.5rem 0;
+      border-top: 1px solid var(--border);
+      background: #02050e;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-content p {
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    /* --- Layout Adapters & Media Queries --- */
+    @media (max-width: 1024px) {
+      .hero-grid, .problems-layout, .showcase, .pricing-split-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+      .hero-grid { text-align: center; }
+      .hero-actions { justify-content: center; }
+      .hero-points { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+      #features .features-matrix { grid-template-columns: repeat(2, 1fr); }
+      .use-cases-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline-track::before { left: 1.5rem; }
+      .timeline-node { grid-template-columns: 1fr; gap: 1.5rem; }
+      .timeline-node:nth-child(even) .timeline-content { grid-column: 1; }
+      .timeline-marker { left: 1.5rem; }
+      .timeline-content { margin-left: 3.5rem; }
+      .workflow-gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 5rem 0; }
+      .hero-points, #features .features-matrix, .use-cases-grid, .pricing-table-header, .pricing-row, .faq-masonry, .workflow-gallery {
+        grid-template-columns: 1fr;
+      }
+      .pricing-table-header { display: none; }
+      .pricing-row { gap: 0.5rem; padding: 1.5rem; }
+      .pricing-row div::before {
+        content: attr(data-label) ": ";
+        color: var(--muted);
+        font-size: 0.8rem;
+        display: inline-block;
+        width: 100px;
+      }
+      .pricing-row .plan-name::before { display: none; }
+      .nav-links { display: none; }
+      .menu-toggle { display: flex; }
+      .demo-form { padding: 2rem 1.5rem; }
+      .footer-content { flex-direction: column; text-align: center; }
+    }
+  </style>
 </head>
 
 <body>
@@ -39,199 +1027,430 @@
         <a href="#demo" class="mobile-link">Request Demo</a>
       </div>
     </div>
-
   </nav>
+
   <section class="hero">
     <div class="container hero-grid">
       <div>
         <div class="badge">AI-Powered Document Automation</div>
         <h1>Stop Manual Data Entry From Documents and Emails</h1>
-
         <p>
           Zendix automatically extracts structured data from PDFs, images, text, and emails into clean, reviewable
           tables your team can edit, approve, and export.
         </p>
-
         <div class="hero-actions">
           <a href="#demo" class="btn btn-primary">Request a Demo</a>
           <a href="#workflow" class="btn btn-secondary">See How It Works</a>
         </div>
       </div>
+      
+      <!-- Native Self-Contained Document-To-Table Animated SVG Hero Illustration -->
+      <svg class="hero-illustration" viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Left Side: Source Invoice Card -->
+        <g transform="translate(10, 40)">
+          <rect x="0" y="0" width="170" height="230" rx="12" fill="#0b1329" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1.5"/>
+          <rect x="15" y="20" width="50" height="10" rx="2" fill="#9ca3af" opacity="0.3"/>
+          <rect x="120" y="20" width="35" height="10" rx="2" fill="#8b5cf6" opacity="0.4"/>
+          
+          <line x1="15" y1="50" x2="155" y2="50" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+          <rect x="15" y="65" width="40" height="6" rx="1" fill="#9ca3af" opacity="0.2"/>
+          <rect x="15" y="80" width="65" height="6" rx="1" fill="#9ca3af" opacity="0.2"/>
+          
+          <!-- Highlight Extraction Targets (Animated OCR Overlays) -->
+          <rect class="extract-box" x="115" y="62" width="40" height="12" rx="3" stroke="#8b5cf6" stroke-width="1.5" fill="rgba(139, 92, 246, 0.05)"/>
+          <rect x="120" y="66" width="30" height="4" rx="1" fill="#06b6d4"/>
+          
+          <rect class="extract-box" x="115" y="187" width="40" height="12" rx="3" stroke="#8b5cf6" stroke-width="1.5" fill="rgba(139, 92, 246, 0.05)"/>
+          <rect x="122" y="191" width="26" height="4" rx="1" fill="#10b981"/>
+          
+          <rect x="15" y="110" width="140" height="60" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)"/>
+          <rect x="25" y="122" width="50" height="5" rx="1" fill="#9ca3af" opacity="0.3"/>
+          <rect x="25" y="137" width="70" height="5" rx="1" fill="#9ca3af" opacity="0.15"/>
+          <rect x="25" y="152" width="35" height="5" rx="1" fill="#9ca3af" opacity="0.15"/>
+          
+          <line class="scan-line" x1="5" y1="10" x2="165" y2="10" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" filter="drop-shadow(0 0 4px #8b5cf6)"/>
+        </g>
 
-      <div class="hero-image">
-        <img src="images/Screenshot (502) 1.png" alt="Zendix dashboard preview">
-      </div>
+        <!-- Center Connecting Flow -->
+        <g transform="translate(180, 0)">
+          <path d="M 10 115 Q 65 115 120 125" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="2"/>
+          <path class="pulse-flow" d="M 10 115 Q 65 115 120 125" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+          
+          <path d="M 10 240 Q 65 240 120 185" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="2"/>
+          <path class="pulse-flow" d="M 10 240 Q 65 240 120 185" fill="none" stroke="#06b6d4" stroke-width="2"/>
+          
+          <g transform="translate(45, 140)">
+            <polygon points="20,0 40,11 40,34 20,45 0,34 0,11" fill="#111d37" stroke="#8b5cf6" stroke-width="1.5"/>
+            <circle cx="20" cy="22" r="5" fill="#06b6d4">
+              <animate attributeName="r" values="4;7;4" dur="3s" infinite="true"/>
+              <animate attributeName="opacity" values="0.6;1;0.6" dur="3s" infinite="true"/>
+            </circle>
+          </g>
+        </g>
+
+        <!-- Right Side: Destination Data Table -->
+        <g transform="translate(310, 65)">
+          <rect x="0" y="0" width="180" height="180" rx="14" fill="#0b1329" stroke="rgba(139, 92, 246, 0.15)" stroke-width="1.5"/>
+          
+          <rect x="12" y="12" width="45" height="8" rx="2" fill="#9ca3af" opacity="0.3"/>
+          <circle cx="152" cy="16" r="3" fill="#10b981"/>
+          <circle cx="164" cy="16" r="3" fill="#9ca3af" opacity="0.4"/>
+          <line x1="12" y1="32" x2="168" y2="32" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+          
+          <rect x="12" y="44" width="30" height="6" rx="1.5" fill="#9ca3af" opacity="0.4"/>
+          <rect x="75" y="44" width="35" height="6" rx="1.5" fill="#9ca3af" opacity="0.4"/>
+          <rect x="133" y="44" width="35" height="6" rx="1.5" fill="#9ca3af" opacity="0.4"/>
+          
+          <g class="row-1">
+            <rect x="12" y="64" width="156" height="24" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)"/>
+            <rect x="20" y="73" width="25" height="6" rx="1.5" fill="#9ca3af" opacity="0.2"/>
+            <rect x="75" y="73" width="30" height="6" rx="1.5" fill="#06b6d4"/>
+            <rect x="143" y="73" width="18" height="6" rx="1.5" fill="#10b981" opacity="0.8"/>
+          </g>
+          
+          <g class="row-2">
+            <rect x="12" y="96" width="156" height="24" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)"/>
+            <rect x="20" y="105" width="35" height="6" rx="1.5" fill="#9ca3af" opacity="0.2"/>
+            <rect x="75" y="105" width="40" height="6" rx="1.5" fill="#9ca3af" opacity="0.2"/>
+            <rect x="138" y="105" width="23" height="6" rx="1.5" fill="#10b981"/>
+          </g>
+          
+          <g class="row-3">
+            <rect x="12" y="128" width="156" height="24" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)"/>
+            <rect x="20" y="137" width="22" height="6" rx="1.5" fill="#9ca3af" opacity="0.2"/>
+            <rect x="75" y="137" width="25" height="6" rx="1.5" fill="#9ca3af" opacity="0.2"/>
+            <rect x="146" y="137" width="15" height="6" rx="1.5" fill="#9ca3af" opacity="0.2"/>
+          </g>
+          
+          <rect x="12" y="160" width="156" height="12" rx="3" fill="rgba(16, 185, 129, 0.06)" stroke="rgba(16, 185, 129, 0.2)"/>
+          <rect x="72" y="164" width="36" height="4" rx="1" fill="#10b981"/>
+        </g>
+      </svg>
     </div>
-
   </section>
-  <section>
+
+  <section style="padding: 0 0 4rem 0;">
     <div class="container">
       <div class="hero-points">
-        <div class="hero-point">Extract data from PDFs, images, text, and emails automatically.</div>
-        <div class="hero-point">Human review workflows included — no blind AI automation.</div>
-        <div class="hero-point">Organize workflows across teams, departments, and customers.</div>
-        <div class="hero-point">Export structured data to CSV and Excel instantly.</div>
+        <div class="hero-point">Extract data from PDFs, images, text, and emails instantly.</div>
+        <div class="hero-point">Human review workflows included — no blind automation.</div>
+        <div class="hero-point">Organize workflows across teams and departments easily.</div>
+        <div class="hero-point">Export structured data to CSV and Excel perfectly.</div>
       </div>
     </div>
   </section>
+
   <section id="problems">
-    <div class="container">
-      <div class="section-header">
+    <div class="container problems-layout">
+      <div class="problems-sticky">
         <h2>Manual Data Entry Slows Teams Down</h2>
-        <p>Many businesses still spend hours copying information from documents into spreadsheets or internal systems.
-        </p>
+        <p>Many businesses still spend hours copying information from messy physical documents or scattered emails directly into spreadsheets or internal administration legacy software systems.</p>
       </div>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Too Much Manual Typing</h3>
-          <p>Teams waste time entering data from PDFs, images, emails, and forms by hand.</p>
+      <div class="problems-list">
+        <div class="problem-item">
+          <h3><span>01 //</span> Too Much Manual Typing</h3>
+          <p>Teams waste core processing hours entering data from highly volatile PDFs, raw images, operational emails, and standalone verification forms completely by hand.</p>
         </div>
-
-        <div class="card">
-          <h3>Costly Errors</h3>
-          <p>Manual re-entry often causes mistakes that lead to delays, confusion, and extra cleanup work.</p>
+        <div class="problem-item">
+          <h3><span>02 //</span> Costly Errors</h3>
+          <p>Manual re-entry often causes transcription mistakes that inevitably lead to processing delays, systemic confusion, and massive downstream cleanup work.</p>
         </div>
-
-        <div class="card">
-          <h3>Scattered Workflows</h3>
-          <p>Documents arrive from different sources and departments, making it hard to keep everything organized.</p>
+        <div class="problem-item">
+          <h3><span>03 //</span> Scattered Workflows</h3>
+          <p>Documents arrive from completely different sources and disconnected channels, making it incredibly hard to track logs or keep operations accurately organized.</p>
         </div>
       </div>
     </div>
-
   </section>
+
   <section id="features">
     <div class="container">
       <div class="section-header">
         <h2>Built for Teams Handling High Volumes of Documents</h2>
-        <p>Zendix helps businesses process documents faster by turning messy files and emails into structured, usable
-          data.</p>
+        <p>Zendix helps modern businesses process operational documents exponentially faster by turning messy files and raw text channels into production-ready structured data streams.</p>
       </div>
-      <div class="grid-3">
-        <div class="card">
+      <div class="features-matrix">
+        <div class="feature-tile">
+          <svg class="tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
           <h3>AI-Powered Extraction</h3>
-          <p>Extract predefined structured data from PDFs, images, text files, and emails in seconds.</p>
+          <p>Extract predefined structured data from PDFs, images, text files, and emails in seconds using specialized multi-modal architectures.</p>
         </div>
-
-        <div class="card">
+        <div class="feature-tile">
+          <svg class="tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           <h3>Human Review Layer</h3>
-          <p>Compare extracted data with original source files, edit values if needed, and approve results confidently.
-          </p>
+          <p>Compare extracted data side-by-side with original source files, edit values instantly, and approve final results with complete confidence.</p>
         </div>
-
-        <div class="card">
+        <div class="feature-tile">
+          <svg class="tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           <h3>Email Automation</h3>
-          <p>Automatically process incoming business emails and attachments on demand.</p>
+          <p>Automatically ingest and process incoming operational business emails and unstructured nested attachments purely on demand.</p>
         </div>
-
-        <div class="card">
+        <div class="feature-tile">
+          <svg class="tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
           <h3>Reusable Schemas</h3>
-          <p>Create schemas defining data to extract once and reuse them across different environments and workflows.
-          </p>
+          <p>Define target extraction fields once using a flexible template logic and reuse them globally across different environments.</p>
         </div>
-
-        <div class="card">
+        <div class="feature-tile">
+          <svg class="tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7"/><polygon points="2 17 12 22 22 17"/><polygon points="2 12 12 17 22 12"/></svg>
           <h3>Multi-Environment Workflows</h3>
-          <p>Separate workflows by department, customer, business unit, or use case for cleaner operations.</p>
+          <p>Isolate critical workflows by specific internal departments, enterprise customers, or standalone business branches for cleaner metrics.</p>
         </div>
-
-        <div class="card">
+        <div class="feature-tile">
+          <svg class="tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 10 12 15 7 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <h3>Export Ready Data</h3>
-          <p>Export clean structured results to CSV or Excel for reporting, analytics, or downstream tools.</p>
+          <p>Instantly generate pristine structures ready for CSV or Excel export to facilitate zero-friction usage in internal legacy databases.</p>
         </div>
-
-        <div class="card">
+        <div class="feature-tile">
+          <svg class="tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
           <h3>Audit Logs</h3>
-          <p>Keep a clear record of uploads, edits, approvals, etc, so your team can track every action.</p>
+          <p>Maintain immutable chronological tracking logs covering document uploads, structural alterations, edits, and final human approvals.</p>
         </div>
-
-        <div class="card">
+        <div class="feature-tile">
+          <svg class="tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
           <h3>API Integration</h3>
-          <p>Connect Zendix to your internal systems and workflows using a flexible API for seamless automation.</p>
+          <p>Seamlessly feed internal core software architectures or ERP components using a high-throughput developer-focused API interface.</p>
         </div>
-
-        <div class="card">
+        <div class="feature-tile">
+          <svg class="tile-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <h3>File Privacy & Security</h3>
-          <p>Keep business documents protected with secure handling, controlled access, and privacy-focused workflows.
-          </p>
+          <p>Ensure sensitive operational corporate files remain guarded behind hardened access keys and robust file encryption mechanisms.</p>
         </div>
       </div>
     </div>
-
   </section>
+
   <section id="workflow">
     <div class="container">
       <div class="section-header">
         <h2>How Zendix Works</h2>
         <p>Automate repetitive document workflows in four simple steps.</p>
       </div>
-      <div class="workflow">
-        <div class="card">
-          <div class="step-number">1</div>
-          <h3>Upload or Connect</h3>
-          <p>Upload PDFs, images, and text files or connect your business email inbox.</p>
+      
+      <div class="timeline-track">
+        <div class="timeline-node">
+          <div class="timeline-marker">1</div>
+          <div class="timeline-content">
+            <h3>Upload or Connect</h3>
+            <p>Upload PDFs, images, and text files directly or map your existing business support email accounts effortlessly.</p>
+          </div>
+          <div class="timeline-space"></div>
         </div>
-
-        <div class="card">
-          <div class="step-number">2</div>
-          <h3>Automatic Extraction</h3>
-          <p>Zendix extracts predefined fields and structures the data into organized tables.</p>
+        
+        <div class="timeline-node">
+          <div class="timeline-marker">2</div>
+          <div class="timeline-space"></div>
+          <div class="timeline-content">
+            <h3>Automatic Extraction</h3>
+            <p>The Zendix AI parsing array isolates your predefined target points and organizes text elements into uniform structures.</p>
+          </div>
         </div>
-
-        <div class="card">
-          <div class="step-number">3</div>
-          <h3>Review and Approve</h3>
-          <p>Teams can compare extracted data with source documents and fix anything if needed.</p>
+        
+        <div class="timeline-node">
+          <div class="timeline-marker">3</div>
+          <div class="timeline-content">
+            <h3>Review and Approve</h3>
+            <p>Verify accuracy across split processing screens, adjusting values manually where anomalies are flagged.</p>
+          </div>
+          <div class="timeline-space"></div>
         </div>
-
-        <div class="card">
-          <div class="step-number">4</div>
-          <h3>Export and Continue</h3>
-          <p>Export clean structured data to CSV or continue workflows inside Zendix.</p>
+        
+        <div class="timeline-node">
+          <div class="timeline-marker">4</div>
+          <div class="timeline-space"></div>
+          <div class="timeline-content">
+            <h3>Export and Continue</h3>
+            <p>Instantly port data tables over via production clean CSV logs or sync upstream via enterprise webhooks.</p>
+          </div>
         </div>
       </div>
 
+      <!-- Updated Workflow Gallery with Interactive, High-Context Animated SVGs -->
       <div class="workflow-gallery">
         <div class="workflow-shot">
-          <img src="images/Screenshot (503).png" alt="Document to table extraction">
-          <div class="shot-label">Document to Table</div>
-          <div class="shot-desc">Turn files into structured records automatically.</div>
+          <!-- Card 1: Upload or Connect SVG -->
+          <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(40, 25)">
+              <rect x="0" y="30" width="160" height="70" rx="10" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+              <circle cx="80" cy="65" r="22" fill="rgba(139,92,246,0.1)"/>
+              <path class="anim-arrow" d="M80 53 V73 M74 59 L80 53 L86 59" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <g class="anim-file">
+                <rect x="68" y="0" width="24" height="32" rx="4" fill="#111d37" stroke="#06b6d4" stroke-width="1.5"/>
+                <line x1="74" y1="10" x2="86" y2="10" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                <line x1="74" y1="16" x2="82" y2="16" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+              </g>
+            </g>
+          </svg>
+          <div class="shot-label">1. Upload or Connect</div>
+          <div class="shot-desc">Ingest files straight through secure local uploads or mapped cloud emails.</div>
         </div>
 
         <div class="workflow-shot">
-          <img src="images/Screenshot (504).png" alt="Review workflow screen">
-          <div class="shot-label">Review Screen</div>
-          <div class="shot-desc">Inspect and edit extracted results before approval.</div>
+          <!-- Card 2: Automatic Extraction SVG -->
+          <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(75, 20)">
+              <rect x="0" y="0" width="90" height="120" rx="8" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+              <rect x="12" y="15" width="40" height="8" rx="2" fill="#8b5cf6" opacity="0.3"/>
+              <circle cx="75" cy="19" r="4" fill="#06b6d4"/>
+              <line x1="12" y1="40" x2="78" y2="40" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+              <line x1="12" y1="55" x2="60" y2="55" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+              <line x1="12" y1="70" x2="70" y2="70" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+              <line x1="12" y1="85" x2="45" y2="85" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+              <rect x="10" y="100" width="70" height="12" rx="3" fill="rgba(16,185,129,0.1)" stroke="#10b981" stroke-width="1"/>
+              <line class="anim-scan" x1="-5" y1="10" x2="95" y2="10" stroke="#8b5cf6" stroke-width="2" filter="drop-shadow(0 0 3px #8b5cf6)"/>
+            </g>
+          </svg>
+          <div class="shot-label">2. Automatic Extraction</div>
+          <div class="shot-desc">Our multi-modal parsing array reads text fragments instantly.</div>
         </div>
 
         <div class="workflow-shot">
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop"
-            alt="Fail reason panel">
-          <div class="shot-label">Fail Reason</div>
-          <div class="shot-desc">See issues detected during extraction and correct them.</div>
+          <!-- Card 3: Review and Approve SVG -->
+          <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(25, 25)">
+              <rect x="0" y="0" width="190" height="110" rx="10" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+              <line x1="95" y1="0" x2="95" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+              <!-- Left Split Frame View -->
+              <rect x="12" y="15" width="70" height="80" rx="4" fill="#111d37"/>
+              <rect x="20" y="30" width="40" height="10" rx="2" fill="#8b5cf6" opacity="0.3"/>
+              <rect x="20" y="50" width="54" height="6" rx="1" fill="#9ca3af" opacity="0.2"/>
+              <rect x="20" y="65" width="35" height="6" rx="1" fill="#06b6d4"/>
+              <!-- Right Split Editor View -->
+              <rect x="108" y="15" width="70" height="30" rx="4" fill="rgba(255,255,255,0.02)" stroke="#8b5cf6" stroke-width="1"/>
+              <rect x="116" y="27" width="40" height="6" rx="1.5" fill="#06b6d4"/>
+              <line class="anim-cursor" x1="159" y1="24" x2="159" y2="36" stroke="#8b5cf6" stroke-width="1.5"/>
+              <rect x="108" y="55" width="70" height="20" rx="4" fill="#10b981"/>
+              <circle cx="143" cy="65" r="4" fill="white"/>
+            </g>
+          </svg>
+          <div class="shot-label">3. Review and Approve</div>
+          <div class="shot-desc">Correct values contextually side-by-side inside human-review workflows.</div>
         </div>
 
         <div class="workflow-shot">
-          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1600&auto=format&fit=crop"
-            alt="Email workflow automation">
-          <div class="shot-label">Email Automation</div>
-          <div class="shot-desc">Automatically process incoming emails and attachments.</div>
+          <!-- Card 4: Export and Continue SVG -->
+          <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(30, 25)">
+              <rect x="0" y="0" width="180" height="65" rx="8" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+              <rect x="15" y="15" width="150" height="16" rx="4" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1"/>
+              <circle cx="30" cy="23" r="3" fill="#10b981"/>
+              <rect x="50" y="20" width="40" height="6" rx="1" fill="#9ca3af" opacity="0.4"/>
+              <rect x="110" y="20" width="35" height="6" rx="1" fill="#9ca3af" opacity="0.4"/>
+              <g class="anim-export">
+                <rect x="75" y="45" width="30" height="30" rx="6" fill="#8b5cf6" filter="drop-shadow(0 4px 10px rgba(139,92,246,0.3))"/>
+                <path d="M85 60 L90 65 L95 60 M90 55 V65" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <rect x="40" y="95" width="100" height="12" rx="6" fill="#111d37" stroke="rgba(255,255,255,0.08)"/>
+              <rect x="65" y="99" width="50" height="4" rx="1" fill="#10b981" opacity="0.4"/>
+            </g>
+          </svg>
+          <div class="shot-label">4. Export and Continue</div>
+          <div class="shot-desc">Deliver clean tables downstream into CSV logs or API webhooks instantly.</div>
         </div>
       </div>
 
       <div class="showcase">
-        <div>
-          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop"
-            alt="Zendix dashboard preview">
+        <div class="showcase-display" id="showcaseDisplay">
+          <!-- Slide 1: Pending Tasks Table Interface -->
+          <div class="showcase-slide active">
+            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="380" height="280" rx="16" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+              <!-- Table Header -->
+              <rect x="25" y="30" width="120" height="12" rx="3" fill="#9ca3af" opacity="0.3"/>
+              <line x1="25" y1="60" x2="375" y2="60" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+              <!-- Row 1: Pending -->
+              <g transform="translate(0, 20)">
+                <rect x="25" y="65" width="140" height="10" rx="3" fill="#9ca3af" opacity="0.15"/>
+                <rect x="300" y="60" width="70" height="20" rx="10" fill="rgba(251, 191, 36, 0.1)" stroke="#fbbf24" stroke-width="1"/>
+                <text x="317" y="74" fill="#fbbf24" font-family="'Inter', sans-serif" font-size="9" font-weight="600">Pending</text>
+                <line x1="25" y1="95" x2="375" y2="95" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+              </g>
+              <!-- Row 2: Flagged -->
+              <g transform="translate(0, 70)">
+                <rect x="25" y="65" width="110" height="10" rx="3" fill="#9ca3af" opacity="0.15"/>
+                <rect x="300" y="60" width="70" height="20" rx="10" fill="rgba(248, 113, 113, 0.1)" stroke="#f87171" stroke-width="1"/>
+                <text x="318" y="74" fill="#f87171" font-family="'Inter', sans-serif" font-size="9" font-weight="600">Flagged</text>
+                <line x1="25" y1="95" x2="375" y2="95" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+              </g>
+              <!-- Row 3: Verified -->
+              <g transform="translate(0, 120)">
+                <rect x="25" y="65" width="160" height="10" rx="3" fill="#9ca3af" opacity="0.15"/>
+                <rect x="300" y="60" width="70" height="20" rx="10" fill="rgba(52, 211, 153, 0.1)" stroke="#34d399" stroke-width="1"/>
+                <text x="316" y="74" fill="#34d399" font-family="'Inter', sans-serif" font-size="9" font-weight="600">Verified</text>
+                <line x1="25" y1="95" x2="375" y2="95" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Slide 2: Zendix Engine Hub Connections -->
+          <div class="showcase-slide">
+            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Connector Lines -->
+              <path d="M 100 70 Q 200 70 200 150" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <path d="M 100 150 L 200 150" stroke="#06b6d4" stroke-width="1.5"/>
+              <path d="M 100 230 Q 200 230 200 150" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 4"/>
+              
+              <!-- Left Nodes (Business Tools) -->
+              <!-- Email Node -->
+              <g transform="translate(40, 45)">
+                <rect x="0" y="0" width="60" height="40" rx="8" fill="#111d37" stroke="rgba(255,255,255,0.06)"/>
+                <path d="M18 14 h24 v12 h-24 z M18 14 l12 8 l12 -8" stroke="#8b5cf6" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+              </g>
+              <!-- ERP Node -->
+              <g transform="translate(40, 130)">
+                <rect x="0" y="0" width="60" height="40" rx="8" fill="#111d37" stroke="rgba(255,255,255,0.06)"/>
+                <text x="18" y="25" fill="#06b6d4" font-family="'Inter', sans-serif" font-size="11" font-weight="700" letter-spacing="0.05em">ERP</text>
+              </g>
+              <!-- Spreadsheet Node -->
+              <g transform="translate(40, 210)">
+                <rect x="0" y="0" width="60" height="40" rx="8" fill="#111d37" stroke="rgba(255,255,255,0.06)"/>
+                <path d="M22 14 h16 v12 h-16 z M22 20 h16 M30 14 v12" stroke="#10b981" stroke-width="1.5" fill="none"/>
+              </g>
+
+              <!-- Central Zendix Engine Core Hub -->
+              <g transform="translate(220, 105)">
+                <rect x="0" y="0" width="140" height="90" rx="16" fill="#030712" stroke="#8b5cf6" stroke-width="2" filter="drop-shadow(0 0 15px rgba(139,92,246,0.2))"/>
+                <text x="38" y="44" fill="#ffffff" font-family="'Inter', sans-serif" font-size="15" font-weight="800" letter-spacing="-0.03em">Zendix</text>
+                <rect x="35" y="56" width="70" height="12" rx="6" fill="rgba(139, 92, 246, 0.15)"/>
+                <circle cx="45" cy="62" r="3" fill="#06b6d4"/>
+                <circle cx="57" cy="62" r="3" fill="#10b981"/>
+                <circle cx="69" cy="62" r="3" fill="#8b5cf6"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Slide 3: Efficiency Performance Analytics -->
+          <div class="showcase-slide">
+            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="380" height="280" rx="16" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+              
+              <!-- Core Line Chart Grid & Vector Path -->
+              <g transform="translate(30, 30)">
+                <path d="M 10 130 Q 90 120 130 70 T 250 30" fill="none" stroke="#8b5cf6" stroke-width="3" filter="drop-shadow(0 4px 8px rgba(139,92,246,0.3))"/>
+                <line x1="10" y1="150" x2="250" y2="150" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+                <line x1="10" y1="10" x2="10" y2="150" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+                <circle cx="250" cy="30" r="4" fill="#06b6d4"/>
+              </g>
+
+              <!-- Metric KPI Block 1: Accuracy -->
+              <g transform="translate(40, 205)">
+                <rect x="0" y="0" width="145" height="65" rx="12" fill="#111d37" stroke="rgba(255,255,255,0.04)"/>
+                <text x="15" y="22" fill="#9ca3af" font-family="'Inter', sans-serif" font-size="10" font-weight="500">ACCURACY</text>
+                <text x="15" y="50" fill="#34d399" font-family="'Inter', sans-serif" font-size="20" font-weight="700" letter-spacing="-0.02em">99.4%</text>
+              </g>
+
+              <!-- Metric KPI Block 2: Hours Saved -->
+              <g transform="translate(215, 205)">
+                <rect x="0" y="0" width="145" height="65" rx="12" fill="#111d37" stroke="rgba(255,255,255,0.04)"/>
+                <text x="15" y="22" fill="#9ca3af" font-family="'Inter', sans-serif" font-size="10" font-weight="500">HOURS SAVED</text>
+                <text x="15" y="50" fill="#ffffff" font-family="'Inter', sans-serif" font-size="20" font-weight="700" letter-spacing="-0.02em">6.2 hrs</text>
+              </g>
+            </svg>
+          </div>
         </div>
 
         <div class="showcase-content">
           <h3>Designed for Real Business Workflows</h3>
-          <p>
-            Zendix combines AI-powered extraction with human review so your team stays in control while processing
-            documents faster.
-          </p>
-
+          <p>Zendix combines AI-powered extraction with human review so your team stays in control while processing documents faster.</p>
           <div class="showcase-list">
             <div>Separate workflows across customers, departments, and business units using environments.</div>
             <div>Create reusable schemas for invoices, shipment records, HR forms, and more.</div>
@@ -240,16 +1459,17 @@
         </div>
       </div>
     </div>
-
   </section>
+
   <section id="use-cases">
     <div class="container">
       <div class="section-header">
         <h2>Common Zendix Use Cases</h2>
         <p>Flexible enough for logistics, finance, HR, operations, support, and research teams.</p>
       </div>
-      <div class="grid-3">
-        <div class="card">
+      <div class="use-cases-grid">
+        <div class="use-case-box">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           <h3>Logistics</h3>
           <ul>
             <li>Shipment documents</li>
@@ -257,8 +1477,8 @@
             <li>Email attachment workflows</li>
           </ul>
         </div>
-
-        <div class="card">
+        <div class="use-case-box">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <h3>HR and Recruitment</h3>
           <ul>
             <li>Applicant records</li>
@@ -266,8 +1486,8 @@
             <li>Onboarding forms</li>
           </ul>
         </div>
-
-        <div class="card">
+        <div class="use-case-box">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           <h3>Finance and Operations</h3>
           <ul>
             <li>Receipts and invoices</li>
@@ -275,8 +1495,8 @@
             <li>Operational reports</li>
           </ul>
         </div>
-
-        <div class="card">
+        <div class="use-case-box">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           <h3>Research Teams</h3>
           <ul>
             <li>Survey records</li>
@@ -284,8 +1504,8 @@
             <li>Field forms</li>
           </ul>
         </div>
-
-        <div class="card">
+        <div class="use-case-box">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           <h3>Customer Support</h3>
           <ul>
             <li>Request forms</li>
@@ -293,8 +1513,8 @@
             <li>Follow-up records</li>
           </ul>
         </div>
-
-        <div class="card">
+        <div class="use-case-box">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           <h3>Administration</h3>
           <ul>
             <li>Internal documents</li>
@@ -304,171 +1524,140 @@
         </div>
       </div>
     </div>
-
   </section>
+
   <section id="pricing">
     <div class="container">
       <div class="section-header">
         <h2>Simple Pricing That Scales With Your Workload</h2>
-        <p>Choose a plan based on monthly document volume and storage needs. Higher tiers include more capacity and room
-          for larger teams.</p>
+        <p>Choose a plan based on monthly document volume and storage needs. Higher tiers include more capacity and room for larger teams.</p>
       </div>
-      <div style="overflow-x:auto;">
-        <table
-          style="width:100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden;">
-          <thead>
-            <tr style="background: rgba(255,255,255,0.05); text-align: left;">
-              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">Plan</th>
-              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">Pages</th>
-              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">File Storage
-              </th>
-              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">Monthly
-                Payment</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Basic</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">700 pages</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">5 GB</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦135,000</td>
-            </tr>
-            <tr>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Starter</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">1,000 pages</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">10 GB</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦150,000</td>
-            </tr>
-            <tr>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Growth</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">2,500 pages</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">25 GB</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦225,000</td>
-            </tr>
-            <tr>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Business</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">5,000 pages</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">75 GB</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦350,000</td>
-            </tr>
-            <tr>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">Scale</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">10,000 pages</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">200 GB</td>
-              <td style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);">₦600,000</td>
-            </tr>
-            <tr>
-              <td style="padding: 1rem;">Enterprise</td>
-              <td style="padding: 1rem;">Custom pages</td>
-              <td style="padding: 1rem;">Custom storage</td>
-              <td style="padding: 1rem;">Custom pricing</td>
-            </tr>
-          </tbody>
-        </table>
+      
+      <div class="pricing-split-grid">
+        <div class="pricing-main-block">
+          <div class="pricing-table-header">
+            <div>Plan</div>
+            <div>Pages</div>
+            <div>File Storage</div>
+            <div>Monthly Payment</div>
+          </div>
+          
+          <div class="pricing-row">
+            <div class="plan-name">Basic</div>
+            <div data-label="Pages">700 pages</div>
+            <div data-label="Storage">5 GB</div>
+            <div data-label="Price" class="plan-price">₦135,000</div>
+          </div>
+          <div class="pricing-row">
+            <div class="plan-name">Starter</div>
+            <div data-label="Pages">1,000 pages</div>
+            <div data-label="Storage">10 GB</div>
+            <div data-label="Price" class="plan-price">₦150,000</div>
+          </div>
+          <div class="pricing-row">
+            <div class="plan-name">Growth</div>
+            <div data-label="Pages">2,500 pages</div>
+            <div data-label="Storage">25 GB</div>
+            <div data-label="Price" class="plan-price">₦225,000</div>
+          </div>
+          <div class="pricing-row">
+            <div class="plan-name">Business</div>
+            <div data-label="Pages">5,000 pages</div>
+            <div data-label="Storage">75 GB</div>
+            <div data-label="Price" class="plan-price">₦350,000</div>
+          </div>
+          <div class="pricing-row">
+            <div class="plan-name">Scale</div>
+            <div data-label="Pages">10,000 pages</div>
+            <div data-label="Storage">200 GB</div>
+            <div data-label="Price" class="plan-price">₦600,000</div>
+          </div>
+          <div class="pricing-row">
+            <div class="plan-name" style="color: var(--primary);">Enterprise</div>
+            <div data-label="Pages">Custom pages</div>
+            <div data-label="Storage">Custom storage</div>
+            <div data-label="Price" class="plan-price" style="color: var(--primary);">Custom</div>
+          </div>
+        </div>
+
+        <div class="pricing-sidebar-block">
+          <div class="def-card">
+            <h4>PDF Support</h4>
+            <p>Calculated as a single standard structural page processing calculation inside a targeted PDF document track.</p>
+          </div>
+          <div class="def-card">
+            <h4>Image Matrix</h4>
+            <p>Supports clear ingestion maps handling distinct PNG, JPG, JPEG, and WEBP image file configurations seamlessly.</p>
+          </div>
+          <div class="def-card">
+            <h4>Text Blocks</h4>
+            <p>Allocates custom parsing sequences across strings scaling up to 4,000 distinct language text characters.</p>
+          </div>
+          <div class="def-card">
+            <h4>Email Strings</h4>
+            <p>Parses structured metadata context out of target records matching deep email context fields.</p>
+          </div>
+        </div>
       </div>
 
-      <br>
-      <p>Additional file storage charged at ₦2,000 per GB per month.</p>
-      <br>
-
-      <div style="overflow-x: auto;">
-        <table
-          style="width:100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; overflow: hidden;">
-          <thead>
-            <tr style="background: rgba(255,255,255,0.05); text-align: left;">
-              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">File</th>
-              <th style="padding: 1rem; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.08);">Page
-                Definition</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 1rem;">PDF</td>
-              <td style="padding: 1rem;">A single page in a PDF file</td>
-            </tr>
-            <tr>
-              <td style="padding: 1rem;">Image (PNG, JPG, JPEG, WEBP)</td>
-              <td style="padding: 1rem;">A single image file</td>
-            </tr>
-            <tr>
-              <td style="padding: 1rem;">Text</td>
-              <td style="padding: 1rem;">4,000 characters in text content</td>
-            </tr>
-            <tr>
-              <td style="padding: 1rem;">Email</td>
-              <td style="padding: 1rem;">4,000 characters in email body</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="pricing-disclaimer">
+        <p>Additional file storage charged at ₦2,000 per GB per month. AI data extraction costs increase with file size. Uploading very large files may use more pages than expected.</p>
       </div>
-      <br>
-      <p>AI data extraction costs increases with file size. Uploading very large files may use more pages than
-        expected.</p>
-      <br>
     </div>
-
   </section>
+
   <section id="faq">
     <div class="container">
       <div class="section-header">
         <h2>Frequently Asked Questions</h2>
         <p>Quick answers to the questions businesses usually ask before booking a demo.</p>
       </div>
-      <div class="grid-3">
-        <div class="card">
+      <div class="faq-masonry">
+        <div class="faq-node">
           <h3>What file types does Zendix support?</h3>
-          <p>Zendix supports PDFs, PNG, JPEG/JPG, WEBP, and TXT files.</p>
+          <p>Zendix supports PDFs, PNG, JPEG/JPG, WEBP, and TXT files natively within standard parsing sequences.</p>
         </div>
-
-        <div class="card">
+        <div class="faq-node">
           <h3>Can teams review extracted data before exporting it?</h3>
-          <p>Yes. Teams can compare extracted data with the source file, edit values, and approve results. Teams can
-            only export extracted data once approved.</p>
+          <p>Yes. Teams can compare extracted data with the source file, edit values, and approve results. Teams can only export extracted data once approved.</p>
         </div>
-
-        <div class="card">
+        <div class="faq-node">
           <h3>Can Zendix handle different departments or customers?</h3>
-          <p>Yes. Multi-environment workflows let businesses separate documents by department, client, or workflow.</p>
+          <p>Yes. Multi-environment workflows let businesses completely separate documents by department, client, or specific extraction workflows.</p>
         </div>
-
-        <div class="card">
+        <div class="faq-node">
           <h3>Does Zendix support email automation?</h3>
-          <p>Yes. It can automatically process incoming business emails and attachments on demand.</p>
+          <p>Yes. It can automatically process incoming business emails and attachments completely on demand with automated cron listeners.</p>
         </div>
-
-        <div class="card">
+        <div class="faq-node">
           <h3>Can extracted data be exported?</h3>
-          <p>Yes. Clean structured data can be exported to CSV or Excel for use in other tools.</p>
+          <p>Yes. Clean structured data can be exported to CSV or Excel for instant manual mapping into other enterprise applications.</p>
         </div>
-
-        <div class="card">
+        <div class="faq-node">
           <h3>How does Zendix reduce errors?</h3>
-          <p>Zendix includes review workflows and fail reason detection so teams can fix issues before export.</p>
+          <p>Zendix pairs precision multi-modal extraction with mandatory human review workflows and dynamic fail reason detection alerts.</p>
         </div>
       </div>
     </div>
-
   </section>
+
   <section class="cta" id="demo">
     <div class="container">
       <div class="cta-box">
         <h2>Try Zendix With Your Own Documents</h2>
-        <p>Book a quick demo and see how Zendix processes your real workflows using sample documents from your business.
-        </p>
+        <p>Book a quick demo and see how Zendix processes your real workflows using sample documents from your business.</p>
         <form class="demo-form" id="demoForm" action="https://formspree.io/f/xzdaqpjr" method="POST">
           <input type="text" name="name" placeholder="Your Name" required>
           <input type="email" name="email" placeholder="Business Email" required>
           <input type="text" name="company" placeholder="Company Name">
-          <textarea name="message" placeholder="What type of documents or workflows are you looking to automate?"
-            required></textarea>
-
+          <textarea name="message" placeholder="What type of documents or workflows are you looking to automate?" required></textarea>
           <button class="btn btn-primary" type="submit" id="submitBtn">Request Demo</button>
           <div class="form-status" id="formStatus" aria-live="polite"></div>
         </form>
       </div>
     </div>
-
   </section>
+
   <footer>
     <div class="container footer-content">
       <div>
@@ -481,9 +1670,86 @@
         <a href="#demo">Request Demo</a>
       </div>
     </div>
-
   </footer>
-  <script src="index.js"></script>
-</body>
 
+  <script>
+    // --- Mobile Menu Toggle ---
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+      });
+      
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.classList.remove('active');
+          mobileMenu.classList.remove('active');
+        });
+      });
+    }
+
+    // --- Dynamic SVG Showcase Rotation ---
+    const slides = document.querySelectorAll('.showcase-slide');
+    let currentSlide = 0;
+
+    if (slides.length > 0) {
+      setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 4000); // Transitions to the next image seamlessly every 4 seconds
+    }
+
+    // --- Formspree AJAX Submission & UI State Handler ---
+    const demoForm = document.getElementById('demoForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formStatus = document.getElementById('formStatus');
+
+    if (demoForm) {
+      demoForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending Request...';
+        formStatus.textContent = '';
+        formStatus.style.color = 'var(--text)';
+
+        const formData = new FormData(demoForm);
+
+        try {
+          const response = await fetch(demoForm.action, {
+            method: demoForm.method,
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            formStatus.style.color = 'var(--success)';
+            formStatus.textContent = 'Thank you! Your demo request has been sent successfully.';
+            demoForm.reset();
+          } else {
+            const data = await response.json();
+            formStatus.style.color = 'var(--error)';
+            if (data.errors) {
+              formStatus.textContent = data.errors.map(error => error.message).join(', ');
+            } else {
+              formStatus.textContent = 'Oops! There was a problem submitting your form.';
+            }
+          }
+        } catch (error) {
+          formStatus.style.color = 'var(--error)';
+          formStatus.textContent = 'Network error. Please check your internet connection and try again.';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Request Demo';
+        }
+      });
+    }
+  </script>
+</body>
 </html>
