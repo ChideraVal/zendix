@@ -205,7 +205,7 @@
 
     /* --- Premium Hero Section --- */
     .hero {
-      padding: 11rem 0 6rem;
+      padding: 11rem 0 4rem;
       position: relative;
     }
 
@@ -273,6 +273,82 @@
       filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5));
     }
 
+    /* --- Video Section --- */
+    .video-section {
+      padding: 2rem 0 6rem;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      aspect-ratio: 16/9;
+      background: var(--surface);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 92, 246, 0.05);
+      overflow: hidden;
+    }
+
+    .video-wrapper iframe, 
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Video Placeholder Overlay Styling */
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(11, 19, 41, 0.6) 0%, rgba(3, 7, 18, 0.9) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: opacity 0.4s var(--easing);
+    }
+
+    .video-overlay:hover .play-btn {
+      transform: scale(1.08);
+      background: var(--primary-hover);
+      box-shadow: 0 0 35px var(--primary);
+    }
+
+    .play-btn {
+      width: 76px;
+      height: 76px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      transition: all 0.3s var(--easing);
+      box-shadow: 0 0 25px var(--primary-glow);
+    }
+
+    .play-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: #ffffff;
+      transform: translateX(2px);
+    }
+
+    .video-overlay p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
     /* --- Extraction Keyframes (Hero Automation) --- */
     @keyframes scanline {
       0%, 100% { transform: translateY(0); opacity: 0.3; }
@@ -294,7 +370,6 @@
       40%, 100% { opacity: 1; transform: translateX(0); }
     }
 
-    /* CSS hooks targeting internal SVG nodes safely */
     .scan-line { animation: scanline 4s ease-in-out infinite; }
     .pulse-flow { stroke-dasharray: 8, 4; animation: pulsePath 1.5s linear infinite; }
     .extract-box { animation: flashBox 3s ease-in-out infinite; }
@@ -468,7 +543,6 @@
       background: rgba(11, 19, 41, 0.4);
     }
 
-    /* Outlined Vector Icon Styling for Matrix */
     .feature-tile .tile-icon {
       width: 40px;
       height: 40px;
@@ -751,6 +825,47 @@
     }
 
     /* --- Pricing Module --- */
+    .pricing-toggle-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .currency-switcher {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 0.35rem;
+      border-radius: 14px;
+      display: inline-flex;
+      gap: 0.25rem;
+    }
+
+    .switcher-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 0.6rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s var(--easing);
+    }
+
+    .switcher-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+    }
+
+    .pricing-table-wrapper {
+      display: none;
+    }
+
+    .pricing-table-wrapper.active {
+      display: block;
+    }
+
     .pricing-split-grid {
       display: grid;
       grid-template-columns: 1.3fr 0.7fr;
@@ -1056,7 +1171,6 @@
           <rect x="15" y="65" width="40" height="6" rx="1" fill="#9ca3af" opacity="0.2"/>
           <rect x="15" y="80" width="65" height="6" rx="1" fill="#9ca3af" opacity="0.2"/>
           
-          <!-- Highlight Extraction Targets (Animated OCR Overlays) -->
           <rect class="extract-box" x="115" y="62" width="40" height="12" rx="3" stroke="#8b5cf6" stroke-width="1.5" fill="rgba(139, 92, 246, 0.05)"/>
           <rect x="120" y="66" width="30" height="4" rx="1" fill="#06b6d4"/>
           
@@ -1126,6 +1240,27 @@
           <rect x="72" y="164" width="36" height="4" rx="1" fill="#10b981"/>
         </g>
       </svg>
+    </div>
+  </section>
+
+  <!-- Premium Video Showcase Section -->
+  <section class="video-section">
+    <div class="container">
+      <div class="video-wrapper">
+        <div class="video-overlay" id="videoOverlay">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <p>Watch Zendix Workflow In Action</p>
+        </div>
+        <!-- Default video element placeholder. Replace URL source with your actual platform demo video or an embedded player -->
+        <video id="demoVideo" controls preload="none" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-a-conceptual-code-40131-large.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
   </section>
 
@@ -1264,10 +1399,8 @@
         </div>
       </div>
 
-      <!-- Updated Workflow Gallery with Interactive, High-Context Animated SVGs -->
       <div class="workflow-gallery">
         <div class="workflow-shot">
-          <!-- Card 1: Upload or Connect SVG -->
           <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(40, 25)">
               <rect x="0" y="30" width="160" height="70" rx="10" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
@@ -1285,7 +1418,6 @@
         </div>
 
         <div class="workflow-shot">
-          <!-- Card 2: Automatic Extraction SVG -->
           <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(75, 20)">
               <rect x="0" y="0" width="90" height="120" rx="8" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
@@ -1304,17 +1436,14 @@
         </div>
 
         <div class="workflow-shot">
-          <!-- Card 3: Review and Approve SVG -->
           <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(25, 25)">
               <rect x="0" y="0" width="190" height="110" rx="10" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
               <line x1="95" y1="0" x2="95" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
-              <!-- Left Split Frame View -->
               <rect x="12" y="15" width="70" height="80" rx="4" fill="#111d37"/>
               <rect x="20" y="30" width="40" height="10" rx="2" fill="#8b5cf6" opacity="0.3"/>
               <rect x="20" y="50" width="54" height="6" rx="1" fill="#9ca3af" opacity="0.2"/>
               <rect x="20" y="65" width="35" height="6" rx="1" fill="#06b6d4"/>
-              <!-- Right Split Editor View -->
               <rect x="108" y="15" width="70" height="30" rx="4" fill="rgba(255,255,255,0.02)" stroke="#8b5cf6" stroke-width="1"/>
               <rect x="116" y="27" width="40" height="6" rx="1.5" fill="#06b6d4"/>
               <line class="anim-cursor" x1="159" y1="24" x2="159" y2="36" stroke="#8b5cf6" stroke-width="1.5"/>
@@ -1327,7 +1456,6 @@
         </div>
 
         <div class="workflow-shot">
-          <!-- Card 4: Export and Continue SVG -->
           <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(30, 25)">
               <rect x="0" y="0" width="180" height="65" rx="8" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
@@ -1350,7 +1478,6 @@
 
       <div class="showcase">
         <div class="showcase-display" id="showcaseDisplay">
-          <!-- Slide 1: Pending Tasks Table Interface -->
           <div class="showcase-slide active">
             <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="10" y="10" width="380" height="280" rx="16" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
@@ -1381,32 +1508,25 @@
             </svg>
           </div>
 
-          <!-- Slide 2: Zendix Engine Hub Connections -->
           <div class="showcase-slide">
             <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Connector Lines -->
               <path d="M 100 70 Q 200 70 200 150" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4 4"/>
               <path d="M 100 150 L 200 150" stroke="#06b6d4" stroke-width="1.5"/>
               <path d="M 100 230 Q 200 230 200 150" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 4"/>
               
-              <!-- Left Nodes (Business Tools) -->
-              <!-- Email Node -->
               <g transform="translate(40, 45)">
                 <rect x="0" y="0" width="60" height="40" rx="8" fill="#111d37" stroke="rgba(255,255,255,0.06)"/>
                 <path d="M18 14 h24 v12 h-24 z M18 14 l12 8 l12 -8" stroke="#8b5cf6" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
               </g>
-              <!-- ERP Node -->
               <g transform="translate(40, 130)">
                 <rect x="0" y="0" width="60" height="40" rx="8" fill="#111d37" stroke="rgba(255,255,255,0.06)"/>
                 <text x="18" y="25" fill="#06b6d4" font-family="'Inter', sans-serif" font-size="11" font-weight="700" letter-spacing="0.05em">ERP</text>
               </g>
-              <!-- Spreadsheet Node -->
               <g transform="translate(40, 210)">
                 <rect x="0" y="0" width="60" height="40" rx="8" fill="#111d37" stroke="rgba(255,255,255,0.06)"/>
                 <path d="M22 14 h16 v12 h-16 z M22 20 h16 M30 14 v12" stroke="#10b981" stroke-width="1.5" fill="none"/>
               </g>
 
-              <!-- Central Zendix Engine Core Hub -->
               <g transform="translate(220, 105)">
                 <rect x="0" y="0" width="140" height="90" rx="16" fill="#030712" stroke="#8b5cf6" stroke-width="2" filter="drop-shadow(0 0 15px rgba(139,92,246,0.2))"/>
                 <text x="38" y="44" fill="#ffffff" font-family="'Inter', sans-serif" font-size="15" font-weight="800" letter-spacing="-0.03em">Zendix</text>
@@ -1418,12 +1538,10 @@
             </svg>
           </div>
 
-          <!-- Slide 3: Efficiency Performance Analytics -->
           <div class="showcase-slide">
             <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="10" y="10" width="380" height="280" rx="16" fill="#0b1329" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
               
-              <!-- Core Line Chart Grid & Vector Path -->
               <g transform="translate(30, 30)">
                 <path d="M 10 130 Q 90 120 130 70 T 250 30" fill="none" stroke="#8b5cf6" stroke-width="3" filter="drop-shadow(0 4px 8px rgba(139,92,246,0.3))"/>
                 <line x1="10" y1="150" x2="250" y2="150" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
@@ -1431,14 +1549,12 @@
                 <circle cx="250" cy="30" r="4" fill="#06b6d4"/>
               </g>
 
-              <!-- Metric KPI Block 1: Accuracy -->
               <g transform="translate(40, 205)">
                 <rect x="0" y="0" width="145" height="65" rx="12" fill="#111d37" stroke="rgba(255,255,255,0.04)"/>
                 <text x="15" y="22" fill="#9ca3af" font-family="'Inter', sans-serif" font-size="10" font-weight="500">ACCURACY</text>
                 <text x="15" y="50" fill="#34d399" font-family="'Inter', sans-serif" font-size="20" font-weight="700" letter-spacing="-0.02em">99.4%</text>
               </g>
 
-              <!-- Metric KPI Block 2: Hours Saved -->
               <g transform="translate(215, 205)">
                 <rect x="0" y="0" width="145" height="65" rx="12" fill="#111d37" stroke="rgba(255,255,255,0.04)"/>
                 <text x="15" y="22" fill="#9ca3af" font-family="'Inter', sans-serif" font-size="10" font-weight="500">HOURS SAVED</text>
@@ -1532,77 +1648,165 @@
         <h2>Simple Pricing That Scales With Your Workload</h2>
         <p>Choose a plan based on monthly document volume and storage needs. Higher tiers include more capacity and room for larger teams.</p>
       </div>
+
+      <!-- Currency Switching Toggle Button Bar -->
+      <div class="pricing-toggle-container">
+        <div class="currency-switcher">
+          <button type="button" class="switcher-btn active" id="btnNgn">NGN</button>
+          <button type="button" class="switcher-btn" id="btnUsd">USD</button>
+        </div>
+      </div>
       
-      <div class="pricing-split-grid">
-        <div class="pricing-main-block">
-          <div class="pricing-table-header">
-            <div>Plan</div>
-            <div>Pages</div>
-            <div>File Storage</div>
-            <div>Monthly Payment</div>
-            <div>Cost Per Page</div>
+      <!-- Container Wrapper 1: Naira (NGN) Pricing Block -->
+      <div class="pricing-table-wrapper active" id="tableNgn">
+        <div class="pricing-split-grid">
+          <div class="pricing-main-block">
+            <div class="pricing-table-header">
+              <div>Plan</div>
+              <div>Pages</div>
+              <div>File Storage</div>
+              <div>Price</div>
+              <div>Cost Per Page</div>
+            </div>
+            
+            <div class="pricing-row">
+              <div class="plan-name">Starter</div>
+              <div data-label="Pages">1,000 pages</div>
+              <div data-label="File Storage">10 GB</div>
+              <div data-label="Price" class="plan-price">₦100,000/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">₦100/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name">Growth</div>
+              <div data-label="Pages">2,500 pages</div>
+              <div data-label="File Storage">25 GB</div>
+              <div data-label="Price" class="plan-price">₦225,000/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">₦90/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name">Business</div>
+              <div data-label="Pages">5,000 pages</div>
+              <div data-label="File Storage">75 GB</div>
+              <div data-label="Price" class="plan-price">₦400,000/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">₦80/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name">Scale</div>
+              <div data-label="Pages">10,000 pages</div>
+              <div data-label="File Storage">200 GB</div>
+              <div data-label="Price" class="plan-price">₦700,000/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">₦70/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name">Enterprise</div>
+              <div data-label="Pages">25,000 pages</div>
+              <div data-label="File Storage">500 GB</div>
+              <div data-label="Price" class="plan-price">₦1,500,000/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">₦60/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name" style="color: var(--primary);">Custom</div>
+              <div data-label="Pages">Custom pages</div>
+              <div data-label="File Storage">Custom storage</div>
+              <div data-label="Price" class="plan-price" style="color: var(--primary);">Get in touch</div>
+              <div data-label="Cost Per Page" class="plan-price">—</div>
+            </div>
           </div>
-          
-          <div class="pricing-row">
-            <div class="plan-name">Starter</div>
-            <div data-label="Pages">1,000 pages</div>
-            <div data-label="Storage">10 GB</div>
-            <div data-label="Price" class="plan-price">₦100,000</div>
-            <div data-label="Cost" class="plan-price">₦100/page</div>
-          </div>
-          <div class="pricing-row">
-            <div class="plan-name">Growth</div>
-            <div data-label="Pages">2,500 pages</div>
-            <div data-label="Storage">25 GB</div>
-            <div data-label="Price" class="plan-price">₦225,000</div>
-            <div data-label="Cost" class="plan-price">₦90/page</div>
-          </div>
-          <div class="pricing-row">
-            <div class="plan-name">Business</div>
-            <div data-label="Pages">5,000 pages</div>
-            <div data-label="Storage">75 GB</div>
-            <div data-label="Price" class="plan-price">₦400,000</div>
-            <div data-label="Cost" class="plan-price">₦80/page</div>
-          </div>
-          <div class="pricing-row">
-            <div class="plan-name">Scale</div>
-            <div data-label="Pages">10,000 pages</div>
-            <div data-label="Storage">200 GB</div>
-            <div data-label="Price" class="plan-price">₦700,000</div>
-            <div data-label="Cost" class="plan-price">₦70/page</div>
-          </div>
-          <div class="pricing-row">
-            <div class="plan-name">Enterprise</div>
-            <div data-label="Pages">25,000 pages</div>
-            <div data-label="Storage">500 GB</div>
-            <div data-label="Price" class="plan-price">₦1,500,000</div>
-            <div data-label="Cost" class="plan-price">₦60/page</div>
-          </div>
-          <div class="pricing-row">
-            <div class="plan-name" style="color: var(--primary);">Custom</div>
-            <div data-label="Pages">Custom pages</div>
-            <div data-label="Storage">Custom storage</div>
-            <div data-label="Price" class="plan-price" style="color: var(--primary);">Get in touch</div>
-            <div data-label="Cost" class="plan-price">—</div>
+
+          <div class="pricing-sidebar-block">
+            <div class="def-card">
+              <h4>PDF Support</h4>
+              <p>Each page in a PDF file counts as a single page.</p>
+            </div>
+            <div class="def-card">
+              <h4>Image Matrix</h4>
+              <p>A single PNG, JPG, JPEG, and WEBP image file counts as a single page.</p>
+            </div>
+            <div class="def-card">
+              <h4>Text Blocks</h4>
+              <p>4,000 characters in text content counts as a single page.</p>
+            </div>
+            <div class="def-card">
+              <h4>Email Strings</h4>
+              <p>4,000 characters in email body counts as a single page.</p>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="pricing-sidebar-block">
-          <div class="def-card">
-            <h4>PDF Support</h4>
-            <p>Each page in a PDF file counts as a single page.</p>
+      <!-- Container Wrapper 2: Dollar (USD) Pricing Block -->
+      <div class="pricing-table-wrapper" id="tableUsd">
+        <div class="pricing-split-grid">
+          <div class="pricing-main-block">
+            <div class="pricing-table-header">
+              <div>Plan</div>
+              <div>Pages</div>
+              <div>File Storage</div>
+              <div>Price</div>
+              <div>Cost Per Page</div>
+            </div>
+            
+            <div class="pricing-row">
+              <div class="plan-name">Starter</div>
+              <div data-label="Pages">1,000 pages</div>
+              <div data-label="File Storage">10 GB</div>
+              <div data-label="Price" class="plan-price">$150/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">$0.15/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name">Growth</div>
+              <div data-label="Pages">2,500 pages</div>
+              <div data-label="File Storage">25 GB</div>
+              <div data-label="Price" class="plan-price">$275/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">$0.11/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name">Business</div>
+              <div data-label="Pages">5,000 pages</div>
+              <div data-label="File Storage">75 GB</div>
+              <div data-label="Price" class="plan-price">$450/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">$0.09/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name">Scale</div>
+              <div data-label="Pages">10,000 pages</div>
+              <div data-label="File Storage">200 GB</div>
+              <div data-label="Price" class="plan-price">$750/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">$0.075/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name">Enterprise</div>
+              <div data-label="Pages">25,000 pages</div>
+              <div data-label="File Storage">500 GB</div>
+              <div data-label="Price" class="plan-price">$1,550/mo</div>
+              <div data-label="Cost Per Page" class="plan-price">$0.062/page</div>
+            </div>
+            <div class="pricing-row">
+              <div class="plan-name" style="color: var(--primary);">Custom</div>
+              <div data-label="Pages">Custom pages</div>
+              <div data-label="File Storage">Custom storage</div>
+              <div data-label="Price" class="plan-price" style="color: var(--primary);">Get in touch</div>
+              <div data-label="Cost Per Page" class="plan-price">—</div>
+            </div>
           </div>
-          <div class="def-card">
-            <h4>Image Matrix</h4>
-            <p>A single PNG, JPG, JPEG, and WEBP image file counts as a single page.</p>
-          </div>
-          <div class="def-card">
-            <h4>Text Blocks</h4>
-            <p>4,000 characters in text content counts as a single page.</p>
-          </div>
-          <div class="def-card">
-            <h4>Email Strings</h4>
-            <p>4,000 characters in email body counts as a single page.</p>
+
+          <div class="pricing-sidebar-block">
+            <div class="def-card">
+              <h4>PDF Support</h4>
+              <p>Each page in a PDF file counts as a single page.</p>
+            </div>
+            <div class="def-card">
+              <h4>Image Matrix</h4>
+              <p>A single PNG, JPG, JPEG, and WEBP image file counts as a single page.</p>
+            </div>
+            <div class="def-card">
+              <h4>Text Blocks</h4>
+              <p>4,000 characters in text content counts as a single page.</p>
+            </div>
+            <div class="def-card">
+              <h4>Email Strings</h4>
+              <p>4,000 characters in email body counts as a single page.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1674,7 +1878,7 @@
       <div class="footer-links">
         <a href="#features">Features</a>
         <a href="#workflow">How It Works</a>
-        <a href="#demo">Request Demo</a>
+        <a href="https://docs.zendix.app/">API Docs</a>
       </div>
     </div>
   </footer>
@@ -1698,6 +1902,42 @@
       });
     }
 
+    // --- Interactive Video Section Layer Handler ---
+    const videoOverlay = document.getElementById('videoOverlay');
+    const demoVideo = document.getElementById('demoVideo');
+
+    if (videoOverlay && demoVideo) {
+      videoOverlay.addEventListener('click', () => {
+        videoOverlay.style.opacity = '0';
+        setTimeout(() => {
+          videoOverlay.style.display = 'none';
+        }, 400);
+        demoVideo.play();
+      });
+    }
+
+    // --- Dynamic Pricing Currency Switcher ---
+    const btnNgn = document.getElementById('btnNgn');
+    const btnUsd = document.getElementById('btnUsd');
+    const tableNgn = document.getElementById('tableNgn');
+    const tableUsd = document.getElementById('tableUsd');
+
+    if (btnNgn && btnUsd && tableNgn && tableUsd) {
+      btnNgn.addEventListener('click', () => {
+        btnUsd.classList.remove('active');
+        btnNgn.classList.add('active');
+        tableUsd.classList.remove('active');
+        tableNgn.classList.add('active');
+      });
+
+      btnUsd.addEventListener('click', () => {
+        btnNgn.classList.remove('active');
+        btnUsd.classList.add('active');
+        tableNgn.classList.remove('active');
+        tableUsd.classList.add('active');
+      });
+    }
+
     // --- Dynamic SVG Showcase Rotation ---
     const slides = document.querySelectorAll('.showcase-slide');
     let currentSlide = 0;
@@ -1707,7 +1947,7 @@
         slides[currentSlide].classList.remove('active');
         currentSlide = (currentSlide + 1) % slides.length;
         slides[currentSlide].classList.add('active');
-      }, 4000); // Transitions to the next image seamlessly every 4 seconds
+      }, 4000);
     }
 
     // --- Formspree AJAX Submission & UI State Handler ---
